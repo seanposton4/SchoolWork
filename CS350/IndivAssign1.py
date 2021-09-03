@@ -1,3 +1,6 @@
+# Sean Poston
+# 9/2/2021
+
 def decode(encoded:str) -> str:
   stack = ['']
   decoded = ''
