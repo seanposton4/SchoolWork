@@ -1,3 +1,6 @@
+# Find all invertible elements and their inverses
+# given a modulo.
+
 import math
 mod = 26
 
