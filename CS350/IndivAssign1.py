@@ -33,5 +33,5 @@ if __name__ == '__main__':
   encodedExamples = ['2[x]3[mn]', '2[z3[x]]', '3[ab2[yy2[x]]]']
   #Should output 'xxmnmnmn' and 'zxxxzxxx'
 
-  for i in range(len(encodedExamples)):
-    print(decode(encodedExamples[i]))
+  for encode in encodedExamples:
+    print(decode(encode))
