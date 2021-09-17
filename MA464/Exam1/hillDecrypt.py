@@ -8,7 +8,7 @@ ct = ct.replace(' ', '')
 key = [[14, 19, 22], [0, 12, 21], [13, 22, 2]]
 keyinv = [[14, 14, 11], [13, 20, 24], [0, 1, 16]]
 ctm = []
-
+print(f'Cipher Text: \n{ct}')
 #Change ciphertext to numbers
 alpha = list(string.ascii_uppercase)
 alphakey = {}
@@ -29,7 +29,8 @@ for i in range(len(ctn)):
 if len(ctm[-1]) < 3:
   while len(ctm[-1]) < 3:
     ctm[-1].append('Q')
-#print(ctm)
+
+print(f'Cipher Text Matrix Numbers: \n{ctm}')
 
 # for i in range(len(ctm)):
 #   print(f'{i}: {ctm[i]}')
@@ -42,11 +43,11 @@ pt = ''
 for i in range(len(ptmn)):
   for j in range(len(ptmn[i])):
     ptmn[i][j] = ptmn[i][j] % 26
-#print(ptmn)
+print(f'Plain Text Matrix Numbers: \n{ptmn}')
 
 #Convert plaintext matrix to plaintext
 for i in range(len(ptmn)):
   for j in range(len(ptmn[i])):
     pt += list(alphakey.keys())[list(alphakey.values()).index(ptmn[i][j])]
 
-#print(pt)
+print(f'Plain Text: \n{pt}')
