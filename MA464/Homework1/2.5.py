@@ -1,4 +1,4 @@
-# Use exhaustive key search to decrypt the following ct.
+# Use exhaustive key search to decrypt the following SHIFT ct.
 
 ct = 'BEEAKFYDJXUQYHYJIQRYHTYJIQFBQDUYJIIKFUHCQD' #A = 65
 alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
