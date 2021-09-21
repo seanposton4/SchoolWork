@@ -1,4 +1,5 @@
 #Test for what values 
+testcases = [lambda i,j: ((23 * i) + j) % 26 == 19]
 for i in range(26):
   for j in range(26):
     if ((23 * i) + j) % 26 == 19 and ((15 * i) + j) % 26 == 11 and ((3 * i) + j) % 26 == 25 and ((25 * i) + j) % 26 == 21:
