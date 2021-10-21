@@ -2,7 +2,7 @@
 # given a modulo.
 
 import math
-mod = 26
+mod = 29
 
 invertibleAndInverses = {'Invertible': [], 'Inverse': []}
 for i in range(mod):
