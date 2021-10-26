@@ -21,7 +21,10 @@ print(f'Inverses:    {invertibleAndInverses["Inverse"]}')
 print(f'Number n:    {len(invertibleAndInverses["Invertible"])}')
 
 #Uncomment to write to a file if output is too long.
-# fileout = open('output.txt', 'w')
-# fileout.write(f'Modulo: {mod}\n\n')
-# fileout.write(f'Invertibles: {str(invertibleAndInverses["Invertible"])}')
-# fileout.write(f'\nInverses:    {str(invertibleAndInverses["Inverse"])}')
+fileout = open('./output.txt', 'w')
+fileout.write(f'Modulo: {mod}\n\n')
+for i in invertibleAndInverses['Invertible']:
+    fileout.write('%5d' % i)
+fileout.write('\n')
+for i in invertibleAndInverses['Inverse']:
+    fileout.write('%5d' % i)
