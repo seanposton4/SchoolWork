@@ -1,11 +1,14 @@
 import math
 import string
 import numpy as np
+
 #Needs key, keyinv, and ct from user.
 ct = ''
-fileIn = open('MA464/Exam1/hillinput.txt', 'r')
+
+fileIn = open('./Exam1/hillinput.txt', 'r')
 for row in fileIn:
   ct += row
+
 key = [[14, 19, 22], [0, 12, 21], [13, 22, 2]]
 keyinv = [[14, 14, 11], [13, 20, 24], [0, 1, 16]]
 
