@@ -1,0 +1,14 @@
+import java.awt.Point;
+public class Quadrilateral {
+    protected Point point1; //top left
+    protected Point point2; //top right
+    protected Point point3; //bottom right
+    protected Point point4; //bottom left
+
+    public Quadrilateral (Point a, Point b, Point c, Point d) {
+        this.point1 = new Point(a);
+        this.point2 = new Point(b);
+        this.point3 = new Point(c);
+        this.point4 = new Point(d);
+    }
+}
