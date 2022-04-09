@@ -1,0 +1,81 @@
+//JACC Implementation of the VarCalc Grammar
+//This version generates a parse tree 
+%class VarCalc
+%interface VarCalcTokens
+%next next()
+%get lexer.getToken()
+%semantic Object : lexer.getValue()
+%token EQUAL ID ADD SUB MUL DIV EXP LITERAL LPAREN RPAREN SEMI
+
+%right EQUAL
+%left ADD SUB
+%left MUL DIV
+%right EXP
+
+%%
+
+calc :calc SEMI statement      {
+                                    ((VarCalcParseTree.ParseNode)$3).print("");
+                                    System.out.println(((VarCalcParseTree.ParseNode)$3).evaluate());
+                               }
+      | statement              {
+                                    ((VarCalcParseTree.ParseNode)$1).print("");
+                                    System.out.println(((VarCalcParseTree.ParseNode)$1).evaluate());
+                                }
+      ;
+
+statement: assign 
+           | expr 
+           ;
+
+assign: ID EQUAL expr { $$ = pt.new AssignNode(pt.new VariableNode($1.toString()), $3); }
+        ;
+
+expr: term
+      | expr ADD term { $$ = pt.new BinOpNode($1, "+", $3); }
+      | expr SUB term { $$ = pt.new BinOpNode($1, "-", $3); }
+      ;
+
+term: factor
+      | term MUL factor { $$ = pt.new BinOpNode($1, "*", $3); }
+      | term DIV factor { $$ = pt.new BinOpNode($1, "/", $3); }
+      ;
+
+factor: exp
+        | factor EXP factor { $$ = pt.new BinOpNode($1, "**", $3); }
+        ;
+
+exp: LPAREN expr RPAREN  { $$ = $2; }
+     | ID                { $$ = pt.new VariableNode($1.toString()); }
+     | LITERAL           { $$ = pt.new LiteralNode($1); }
+     ;
+%%
+    private VarCalcLexer lexer;
+    private SymbolTable sym;
+    private VarCalcParseTree pt;
+    
+    public VarCalc()
+    {
+        lexer = new VarCalcLexer(System.in);
+        sym = new SymbolTable();
+        pt = new VarCalcParseTree();
+    }
+
+
+    public int next() {
+        lexer.next();
+
+        return lexer.getToken();
+    }
+
+    
+    public void yyerror(String msg) {
+           lexer.printError("ERROR: " + msg);
+    }
+
+
+    public static void main(String [] args) {
+        VarCalc parser = new VarCalc();
+        parser.next();
+        parser.parse();
+    }
