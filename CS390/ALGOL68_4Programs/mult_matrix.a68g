@@ -1,0 +1,80 @@
+BEGIN
+    INT r1, c1, r2, c2;
+    [30,30] INT m1, m2, m3;
+    
+    print(("Enter Row and Column for Matrix 1", newline));
+    read((r1));
+    read((c1));
+
+    FOR i TO r1
+    DO
+        FOR j TO c1 
+        DO
+            print((newline, "Enter a number: "));
+            read(m1[i, j])
+        OD
+    OD;
+
+    print(("Enter Row and Column for Matrix 2", newline));
+    read((r2));
+    read((c2));
+
+    FOR i TO r2
+    DO
+        FOR j TO c2 
+        DO
+            print((newline, "Enter a number: "));
+            read(m2[i, j])
+        OD
+    OD;
+
+        print(("Matrix 1:", newline));
+    FOR i TO r1
+    DO
+        FOR j TO c1
+        DO
+            print((m1[i, j], " "))
+        OD;
+        print((newline))
+    OD;
+
+
+    print(("Matrix 2:", newline));
+    FOR i TO r2
+    DO
+        FOR j TO c2
+        DO
+            print((m2[i, j], " "))
+        OD;
+        print((newline))
+    OD;
+
+    IF r1 >= r2 THEN
+    FOR i TO r1
+        DO
+            FOR j TO c2
+            DO
+                m3[i, j] := 0;
+                FOR k TO c1
+                DO
+                    m3[i, j] +:= m1[i, k] * m2[k, j]
+                OD
+            OD
+        OD;
+            
+        print(("Matrix 3:", newline));
+        FOR i TO r1
+        DO
+            FOR j TO c2
+            DO
+                print((m3[i, j], " "))
+            OD;
+        print((newline))
+        OD
+    ELSE
+        print(("Incompatible Dimensions", newline))
+    FI
+
+
+
+END

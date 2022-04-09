@@ -1,0 +1,6 @@
+JoinGrps     GroupProject  5  5
+FourPrograms Programming  15  9
+Quiz1        Quizzes      10  7
+FORTRAN      Programming  25 18
+Quiz2        Quizzes      10  9
+Looplang     Homework     20 15

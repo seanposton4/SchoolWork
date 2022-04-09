@@ -1,0 +1,56 @@
+What are some of the design issues which must be considered when designing variable name rules in programming languages? How do these relate to the naming rules in C, C++, Java, Lisp, and Algol68?
+
+
+What is variable binding? Be sure to describe the typical binding times for the various elements of variables.
+
+
+
+Discus scope, reference environments, and variable lifetime. How do these three concepts differ and how do they relate to one another?
+
+
+
+Describe the process for implementing referencing environments. Be sure to discuss at least one typical strategy for handling nested environments.
+
+
+
+Describe the process of handling variable types when implementing interpreters and/or compilers.
+
+
+
+Define collections and aggregate types. What is the main difference between the two?
+
+
+
+Create an EBNF description of the aggregate types in C.  Be sure to include both the declaration of the aggregate type, the declaration of aggregate variables, and the referencing of aggregate fields. For example, consider the following example:
+
+
+Define the terms lvalue and rvalue. In what type of operation are these distinctions important?
+
+
+
+Define short circuit evaluation and give a code example which takes advantage of short circuit evaluation.
+
+
+
+What are some of the design issues surrounding the design of assignment operations? Be sure to include a discussion of compound assignment operators.
+
+
+
+What are the two primary types of abstraction provided by programming languages? Be sure to include examples of each as implemented in some of the languages we discussed this semester.
+
+
+
+Describe the design and implementation of subprograms in interpreters/compilers.
+
+
+
+Briefly describe objects and how they relate to data abstraction. Be sure to include a discussions of encapsulation and data hiding. How do objects differ from simple aggregate data types?
+
+
+
+What is the main difference between functional and imperative programming?
+
+
+
+List and discuss some of the advantages and disadvantages of functional programming.
+

@@ -1,0 +1,11 @@
+FILE inf; 
+
+open (inf,"csmajor.txt", stand in channel); 
+STRING line;
+[36] STRING cs;
+FOR i TO 35
+DO get (inf, (line, new line));
+   print((line,new line))
+OD
+
+

@@ -1,0 +1,188 @@
+FILE inf;
+open(inf, "Bill.txt", stand in channel);
+STRING line;
+[1:6] STRING earned;
+[1:6] STRING possible;
+INT total;
+REAL max;
+REAL min;
+INT earnedct:= 0;
+INT possct := 0;
+INT totearn := 0;
+INT totposs := 0;
+REAL grade;
+[1:6] STRING assignment;
+[1:6] STRING ctgry;
+[1:6] INT earn;
+[1:6] INT poss;
+[] STRING unique = ("GroupProject", "Programming ", "Quizzes     ", "Homework    ", " ");
+INT i := 2;
+INT index := 2;
+BOOL in := FALSE;
+get (inf, (total, new line));
+print(total);
+print(new line);
+get (inf, (line, new line));
+assignment[1] := line[1:13];
+ctgry[1] := line[14:25];
+possible[1] := line[27:28];
+earned[1] := line[30:31];
+
+WHILE NOT eof(inf) DO
+  get (inf, (line, new line));
+  assignment[i] := line[1:13];
+  ctgry[i] := line[14:25];
+  possible[i] := line[27:28];
+  earned[i] := line[30:31];
+  i +:= 1
+OD;
+
+FOR j FROM 1 TO 6 DO
+IF possible[j][1] = " " THEN
+poss[j] := 0
+ELIF possible[j][1] = "1" THEN
+poss[j] := 10
+ELIF possible[j][1] = "2"
+THEN poss[j] := 20
+ELIF possible[j][1] = "3"
+THEN poss[j] := 30
+ELIF possible[j][1] = "4"
+THEN poss[j] := 40
+ELIF possible[j][1] = "5" THEN
+poss[i] := 50
+ELIF possible[j][1] = "6" THEN
+poss[i] := 60
+ELIF possible[j][1] = "7" THEN
+poss[i] := 70
+ELIF possible[j][1] = "8" THEN
+poss[i] := 80
+ELIF possible[j][1] = "9" THEN
+poss[i] := 90
+FI;
+
+IF possible[j][2] = "0" THEN
+poss[j] +:= 0
+ELIF possible[j][2] = "1" THEN
+poss[j] +:= 1
+ELIF possible[j][2] = "2" THEN
+poss[j] +:= 2
+ELIF possible[j][2] = "3" THEN
+poss[j] +:= 3
+ELIF possible[j][2] = "4" THEN
+poss[j] +:= 4
+ELIF possible[j][2] = "5" THEN
+poss[j] +:= 5
+ELIF possible[j][2] = "6" THEN
+poss[j] +:= 6
+ELIF possible[j][2] = "7" THEN
+poss[j] +:= 7
+ELIF possible[j][2] = "8" THEN
+poss[j] +:= 8
+ELIF possible[j][2] = "9" THEN
+poss[j] +:= 9
+FI
+OD;
+
+FOR j FROM 1 TO 6 DO
+IF earned[j][1] = " " THEN
+earn[j] := 0
+ELIF earned[j][1] = "1"
+THEN earn[j] := 10
+ELIF earned[j][1] = "2"
+THEN earn[j] := 20
+ELIF earned[j][1] = "3"
+THEN earn[j] := 30
+ELIF earned[j][1] = "4"
+THEN earn[j] := 40
+ELIF earned[j][1] = "5"
+THEN earn[j] := 50
+ELIF earned[j][1] = "6"
+THEN earn[j] := 60
+ELIF earned[j][1] = "7"
+THEN earn[j] := 70
+ELIF earned[j][1] = "8"
+THEN earn[j] := 80
+ELIF earned[j][1] = "9"
+THEN earn[j] := 90
+FI;
+
+IF earned[j][2] = "0" THEN
+earn[j] +:= 0
+ELIF earned[j][2] = "1" THEN
+earn[j] +:= 1
+ELIF earned[j][2] = "2" THEN
+earn[j] +:= 2
+ELIF earned[j][2] = "3" THEN
+earn[j] +:= 3
+ELIF earned[j][2] = "4" THEN
+earn[j] +:= 4
+ELIF earned[j][2] = "5" THEN
+earn[j] +:= 5
+ELIF earned[j][2] = "6" THEN
+earn[j] +:= 6
+ELIF earned[j][2] = "7" THEN
+earn[j] +:= 7
+ELIF earned[j][2] = "8" THEN
+earn[j] +:= 8
+ELIF earned[j][2] = "9" THEN
+earn[j] +:= 9
+FI
+OD;
+
+
+print(unique[1]);
+print(new line);
+print("#######################");
+print(new line);
+FOR x FROM 2 TO 5 DO
+   FOR y FROM 1 TO 6 DO
+   IF ctgry[y] = unique[x - 1] THEN
+   print(assignment[y]);
+   print("   ");
+   print(earn[y]);
+   print(" /");
+   print(poss[y]);
+   print(" = ");
+   grade := earn[y] / poss[y];
+   print(grade * 10);
+   print("%");
+   earnedct +:= earn[y];
+   possct +:= poss[y];
+   print(new line)
+   FI
+   OD;
+print(earnedct);
+print("/");
+print(possct);
+print(" = ");
+grade := earnedct / possct;
+totearn +:= earnedct;
+totposs +:= possct;
+earnedct := 0;
+possct := 0;
+print(grade * 10);
+print("%");
+print(new line);
+print(unique[x]);
+print(new line);
+print("#######################");
+print(new line)
+OD;
+grade := totearn / totposs;
+print("Total Grade: ");
+print(grade);
+print("%");
+
+print(new line);
+print("Max Grade: ");
+grade := total - (totposs - totearn);
+max := grade / total;
+print(max);
+print("%");
+print(new line);
+
+print("Min Grade: ");
+min := totearn / total;
+print(min);
+print("%")
+

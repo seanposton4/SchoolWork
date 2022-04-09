@@ -1,0 +1,13 @@
+PROC test = (INT x) INT:
+	BEGIN
+		print(("INSIDE FUNCTION: ", x));
+		x := 100;
+		x
+	END;
+
+BEGIN
+	INT y := 0;
+	print(y);
+	INT x := test(y);
+	print(x)
+END

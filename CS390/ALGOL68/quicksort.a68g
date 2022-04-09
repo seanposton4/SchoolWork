@@ -1,0 +1,78 @@
+PROC partition = (REF [] INT list, INT first, INT last) INT:
+	BEGIN
+		INT pivot := list[first];
+		INT low := first;
+		INT high := last;
+		
+		WHILE (high > low)
+		DO
+			WHILE ((low <= high) AND (list[low] <= pivot))
+			DO 
+				low +:= 1
+			OD;
+			
+			WHILE ((low <= high) AND (list[high] > pivot))
+			DO
+				high -:= 1
+			OD;
+			
+			IF high > low THEN 
+				INT temp := list[high];
+				list[high] := list[low];
+				list[low] := temp
+			FI
+		OD;
+		
+		WHILE ((high > first) AND (list[high] >= pivot))
+		DO
+			high -:= 1
+		OD;
+		
+		IF pivot > list[high] THEN 
+			list[first] := list[high];
+			list[high] := pivot;
+			high
+			
+			ELSE first
+		FI
+				
+	END;
+
+PROC quicksort = (REF [] INT list, INT first, INT last) VOID:
+	BEGIN
+		IF last > first THEN 
+				INT pivotindex := partition(list, first, last);
+				quicksort(list, first, (pivotindex - 1));
+				quicksort(list, (pivotindex + 1), last)
+		FI
+	END;
+
+PROC quicksorthelp = (REF [] INT list) VOID:
+	BEGIN
+		quicksort(list, 1, 10);
+		list
+	END;
+
+BEGIN #MAIN FUNCTION#
+	
+	[10] INT unsortedlist;
+	
+	# Get user input for unsorted array #
+	FOR i WHILE i <= 10
+	DO print((newline, "Enter number ", i, ": "));
+		read(unsortedlist[i])
+	OD;
+	
+	# Display unsorted array to user #
+	FOR i WHILE i <= 10
+	DO print((newline, "unsortedlist[", i, "]: ", unsortedlist[i]))
+	OD;
+	
+	# Sort array #
+	quicksorthelp(unsortedlist); 
+	
+	# Print sorted array #
+	FOR i WHILE i <= 10
+	DO print((newline, "sortedlist[", i, "]: ", unsortedlist[i]))
+	OD
+END
