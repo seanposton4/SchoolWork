@@ -1,0 +1,31 @@
+I completed the Homework before thinking about the fact that I would need to tell the files I modified. 
+In order to find the files after the fact, I went back and used `grep -n uptime *.[chS]` and `grep -n date *.[chS]. 
+Using grep on date returned quite a few more results than I had worked with just because there are other functions with the word 'date' in them. 
+What I came up with in the end is:
+    
+    ----------------------------
+	syscall.c
+        I added the second table with Strings for the system call names, and proceeded to print this table when the corresponding system call was called. This completed part 1 of the Homework. For part 2, I had to add 'extern int sysdate(void);' This is where the "system call entry point is defined."
+    ----------------------------
+	date.c
+        I had to create date.c, but the assignment had most of the code already completed for it. This is the user program. All I added to this program is the print function that formats the time when gotten from the system.
+    -----------------------------------
+	sysproc.c
+        This is the actual system implementation of sys_date. It's where the system gets the date/time with cmosttime().
+    --------------------------------
+	user.h
+        Adds a function protocol for the system call of date.
+    ------------------------------
+	syscall.h
+        Maps syscall-date to the number 22.
+   ----------------------------
+	usys.S
+        Adds syscall-date to the available system calls.
+    -------------------------------
+	Makefile
+        I also had to add _date\ to UPROGS
+    ---------------------------------
+
+Also it seems like part 1 and 2 are almost mutually exclusive in their functionality. I had to disable part 1 to be able to actually read part 2.
+Also in the interest of transparency, I got most of my information about what these do from here: https://github.com/wildart/CSCI375/blob/master/lab1.md
+There was much other Googling about the how to achieve the actual implementation of the files.
