@@ -1,0 +1,83 @@
+array[6] assignment
+array[6] category
+array[6] possible
+array[6] earned
+array[6] unique
+int totalPts = 1000
+int totalEarned = 0
+int totalPoss = 0
+int ctearn = 0
+int ctposs = 0
+int counter = 0
+boolean present = false
+double grade
+double maxGrade
+double minGrade
+
+floop i = 1 to 6:
+   say "\nEnter in the assignment: "
+   insert string [assignment[i]]
+   say "\nEnter in the category: "
+   insert string [category[i]]
+   say "\nEnter in the points possible: "
+   insert int [possible[i]]
+   say "\nEnter in the points earned: "
+   insert int [earned[i]]
+   am unique[i] = ""
+end
+
+floop j = 1 to :
+   am present = false
+   floop k = 1 to 6:
+      if category[j] = unique[k]:
+         am present = true
+      end
+   end
+   if present = false:
+      unique[counter] = category[j]
+      am counter = counter + 1
+   end
+end
+
+floop i=1 to counter:
+   am ctearn = 0   
+   am ctposs = 0
+   say unique[i]
+   say "\n#########################"
+   floop j=1 to 6:
+      if category[j] = unique[i]:
+         say "\n"
+	 say assignment[j]
+         say "   "
+         say earned[j]
+         say "/"
+         say possible[j]
+         say " = "
+         am grade = (earned[j] / possible[j]) * 100
+         say grade
+         say "%"
+         am ctearn = ctearn + earned[j]
+         am ctposs = ctposs + possible[j]
+      end
+   end
+   am grade = (ctearn / ctposs) * 100
+   am totalEarned = totalEarned + ctearn
+   am totalPoss = totalPoss + ctposs
+   say "\nGrade for category = "
+   say grade
+   say "%"
+   say "\n#########################"
+end
+
+grade = (totalEarned / totalPoss) * 100
+minGrade = (totalEarned / totalPts) * 100
+maxGrade = ((totalPts - totalPoss) + totalEarned) / totalPts
+say "\nTotal Grade: "
+say grade
+say "%"
+say "\nMaximum Grade: "
+say maxGrade
+say "%"
+say "\nMinimum Grade: "
+say minGrade
+say "%"

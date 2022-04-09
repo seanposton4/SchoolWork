@@ -1,0 +1,9 @@
+array[10] orginalArray
+array[10] newArray
+am i=0
+am j=10
+say "Enter size of array: "
+floop i to j:
+  am originalArray[i]
+end
+function quicksort():

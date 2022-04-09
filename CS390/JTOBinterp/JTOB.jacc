@@ -1,0 +1,303 @@
+// JACC Implementation of the JTOB Parser
+
+//////////////////////////////////////////
+// Directives
+//////////////////////////////////////////
+%class JTOB
+%interface JTOBTokens
+%next yynext()
+%get lexer.getToken()
+%semantic Object : lexer.getValue()
+
+%token ARRAY LBRACKET RBRACKET ASSIGN MINUS WHILE END INSERT SAY ID LITERAL STRING PLUS MULTIPLY DIVIDE LPARENTHESIS RPARENTHESIS TRUE FALSE DOUBLEQUOTES FLOOP AM IF TO COLON ELSE CHARACTER EQUAL NEQUAL GTHAN LTHAN EGTHAN ELTHAN  
+%left MINUS PLUS MULTIPLY DIVIDE
+%right ASSIGN 
+
+%%
+//////////////////////////////////////////
+// Grammar Rules
+//////////////////////////////////////////
+program : stmnt_list 
+          { 
+             program = tree.new 
+               ProgramNode((JTOBParseTree.StatementListNode)$1) ; 
+          }
+          ;
+
+stmnt_list : statement 
+             { 
+               $$ = tree.new StatementListNode(
+                  (JTOBParseTree.StatementNode) $1
+               ) ; 
+             }
+            | stmnt_list statement  
+              { 
+                ((JTOBParseTree.StatementListNode)$1).add(
+                     (JTOBParseTree.StatementNode) $2
+                ) ;
+                $$=$1 ;
+              }
+             ;
+
+statement: array_decl  
+          | assignment  
+          | while 
+		      | floop
+		      | if
+          | input       
+          | output      
+           ;
+
+array_decl: ARRAY LBRACKET literal RBRACKET ID 
+            {
+              $$ = tree.new ArrayDeclNode($5.toString(), (Integer) $3) ;
+            }
+            ;
+
+assignment: AM ref ASSIGN expr 
+            {
+              $$ = tree.new AssignNode((JTOBParseTree.RefNode)$2, 
+                                       (JTOBParseTree.ParseNode)$3) ;
+            }
+            ;
+
+expr: expr PLUS term  
+      {
+        $$ = tree.new BinOpNode((JTOBParseTree.ParseNode)$1,  
+                                "+", 
+                                (JTOBParseTree.ParseNode)$3) ;
+      }
+	  | expr MINUS term
+      {
+        $$ = tree.new BinOpNode((JTOBParseTree.ParseNode)$1,  
+                                    "-", 
+                                    (JTOBParseTree.ParseNode)$3) ;
+        }
+    | term
+     ;
+
+term: term MULTIPLY factor
+  {
+    
+    $$ = tree.new BinOpNode((JTOBParseTree.ParseNode)$1,  
+                                "*", 
+                                (JTOBParseTree.ParseNode)$3) ;
+  
+  }
+	| term DIVIDE factor
+	{
+		$$ = tree.new BinOpNode((JTOBParseTree.ParseNode)$1,  
+                                "/", 
+                                (JTOBParseTree.ParseNode)$3) ;
+	}
+  | factor
+	 ;
+
+factor: literal
+    | ref    
+    | boolean
+    | char
+    | string
+    | expr
+    ;
+
+boolean: TRUE
+		| FALSE
+		 ;
+		
+logic1: logic EQUAL logic
+	{
+		$$ = tree.new LogicNode((JTOBParseTree.RefNode) $1, 
+								"="
+                                 (JTOBParseTree.StatementListNode)$3) ;
+	}
+	| logic NEQUAL logic
+	{
+		$$ = tree.new LogicNode((JTOBParseTree.RefNode) $1, 
+								"<>"
+                                 (JTOBParseTree.StatementListNode)$3) ;
+	}
+	| logic
+	 ;
+
+logic: expr GTHAN expr
+	{
+		$$ = tree.new LogicNode((JTOBParseTree.RefNode) $1,
+								">",
+                                 (JTOBParseTree.StatementListNode)$3) ;
+	}
+	| expr LTHAN expr
+	{
+		$$ = tree.new LogicNode((JTOBParseTree.RefNode) $1, 
+								"<",
+                                 (JTOBParseTree.StatementListNode)$3) ;
+	}
+	| expr EGTHAN expr
+	{
+		$$ = tree.new LogicNode((JTOBParseTree.RefNode) $1, 
+								">=",
+                                 (JTOBParseTree.StatementListNode)$3) ;
+	}
+	| expr ELTHAN expr
+	{
+		$$ = tree.new LogicNode((JTOBParseTree.RefNode) $1, 
+								"<=",
+                                 (JTOBParseTree.StatementListNode)$3) ;
+	}
+	| expr
+	 ;
+
+
+while: WHILE boolean COLON stmnt_list END 
+       {
+         $$ = tree.new WhileNode((JTOBParseTree.RefNode) $2, 
+                                 (JTOBParseTree.StatementListNode)$4) ;
+       }
+       
+        ;
+	   
+floop: FLOOP literal TO literal COLON stmnt_list END 
+	{
+		$$ = tree.new FloopNode((JTOBParseTree.RefNode) $2, (JTOBParseTree.RefNode) $4, 
+                                 (JTOBParseTree.StatementListNode)$6) ;
+	}
+	 ;
+
+if: IF LPARENTHESIS boolean RPARENTHESIS COLON stmnt_list END
+	{
+		$$ = tree.new IfNode((JTOBParseTree.RefNode) $3, 
+                                 (JTOBParseTree.StatementListNode)$6) ;
+	}
+	| IF LPARENTHESIS boolean RPARENTHESIS COLON stmnt_list ELSE stmnt_list END
+	{
+		$$ = tree.new IfNode((JTOBParseTree.RefNode) $3, 
+                                 (JTOBParseTree.StatementListNode)$6, (JTOBParseTree.StatementListNode)$8) ;
+	}
+  | boolean
+	 ;
+	
+
+
+input: INSERT ref 
+       { 
+         $$ = tree.new InputNode((JTOBParseTree.RefNode) $2) ; 
+       }
+        ;
+
+output: SAY ref
+        { 
+          $$ = tree.new OutputNode((JTOBParseTree.RefNode) $2) ; 
+        }
+        | SAY literal
+        { 
+          $$ = tree.new OutputNode((JTOBParseTree.RefNode) $2) ; 
+        }
+         ;
+
+ref: ID LBRACKET expr RBRACKET 
+    { 
+      $$ = tree.new RefNode($1.toString(), (JTOBParseTree.ParseNode) $3) ; 
+    }
+     ;
+
+char: CHARACTER
+    {
+      $$ = tree.new CharacterNode((Character)$1) ;
+    }
+     ;
+
+literal: LITERAL
+	{
+        $$ = tree.new LiteralNode((Integer)$1) ;   
+	}
+   ;	
+
+string: DOUBLEQUOTES STRING DOUBLEQUOTES
+	{
+		$$ = tree.new StringNode((String)$2) ; 
+	}
+ ;
+
+
+
+%%
+
+//////////////////////////////////////////
+// Extra Code
+//////////////////////////////////////////
+
+    private JTOBLexer lexer ;
+    private int token ;
+    private Object yylvalue ;
+    private JTOBParseTree tree ;
+    private JTOBParseTree.ProgramNode program ;
+
+    public int yynext() {
+        lexer.next() ;
+        token = lexer.getToken() ;
+        yylvalue = lexer.getValue() ;
+
+        return token ;
+    }
+
+    public void yyerror(String msg) {
+        lexer.printError("ERROR: " + msg) ;
+    }
+
+    public JTOB(java.io.InputStream in) {
+        lexer = new JTOBLexer(in) ; 
+        tree = new JTOBParseTree(this) ;
+    }
+
+
+    public JTOBParseTree.ProgramNode getProgram() {
+        return program ;
+    }
+
+
+    public static void main(String [] args) {
+        boolean interpret = true ;
+        boolean printTree = false ;
+        boolean compile = false ;
+        String filename="" ;
+
+        //process command line
+        for(int i=0 ; i<args.length ; i++) {
+            if(args[i].equals("-c")) {
+                interpret = false ;
+                compile = true ;
+            } else if(args[i].equals("-t")) {
+                printTree = true ;
+            } else {
+                filename = args[i] ;
+            }
+        }
+
+        try {
+            JTOB parser = new JTOB(new java.io.FileInputStream(filename)) ;
+            parser.yynext() ;
+            parser.parse() ;
+ 
+            //print the tree
+            if(printTree) {
+                parser.getProgram().print("") ;
+            }
+
+            //interpret the code
+            if(interpret) {
+                parser.getProgram().evaluate() ;
+            }
+
+            //compile the code to c
+            if(compile) {
+                java.io.FileOutputStream file = new java.io.FileOutputStream(filename.split("\\.")[0] + ".c") ;
+                file.write(parser.getProgram().generate().getBytes()) ;
+                file.close() ;
+            }
+
+        } catch(java.io.FileNotFoundException e) {
+            System.err.println("Could not open file.") ;
+        } catch(java.io.IOException e) {
+            System.err.println("File Write Error") ;
+        }
+    }

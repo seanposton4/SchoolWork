@@ -1,0 +1,95 @@
+
+
+say "Please enter your information. Enter . to end"
+string input
+array[36] takenClass
+array[36] canTakeClass
+array[50] take
+array[50] prereq
+int hours = 0
+int takenHours = 0
+int needHours = 0
+int classNum = 0
+array[20] class
+int classCount = 0
+int takeClassCount = 0
+
+insert string [input]
+int GPA
+
+
+while input[1] <> "." :
+ int count = 0
+ while input[count] <> "|":
+  class[count] = input[count]
+  count = count + 1
+ end
+
+ count = count + 1
+
+ hour = input [count]
+
+ count = count + 1
+
+ while input[count] <> "|":   
+  prereq[count] = input[count]
+  count = count + 1
+ end
+
+ count = count + 1
+ 
+
+ if input[count] == 'A':
+  GPA = GPA + 4
+  takenClass[classCount] = class
+  classCount = classCount+1
+  takenHours = takenHours + hours
+
+ else if input[count] == 'B':
+  GPA = GPA + 3
+  takenClass[classCount] = class
+  classCount = classCount+1
+  takenHours = takenHours + hours 
+
+ else if input[count] == 'C':
+  GPA = GPA + 2
+  takenClass[classCount] = class
+  classCount = classCount+1
+  takenHours = takenHours + hours 
+
+ else if input[count] == 'D':
+  GPA = GPA + 1
+  takenClass[classCount] = class
+  classCount = classCount+1
+  takenHours = takenHours + hours 
+
+ else if input[count] == 'F':
+  takenClass[classCount] = class
+  classCount = classCount+1
+  takenHours = takenHours + hours
+
+ else :
+  needHours = needHours + hours
+  if prereq == takenClass
+   canTakeClass[takeClassCount] == class
+  
+  
+end
+
+
+
+
+
+
+  insert string [input]
+end
+
+say "There is no file this passes line by line"
+say "GPA :      " + (GPA / takenHours)
+say " Hours Attempted:      " + takenHours
+say "Hours completed:       " + takenHours
+say"Credits remaining:      " + needHours
+say"Possible Courses to take next"
+counter = 0
+while counter < takeClassCount:
+ say canTakeClass[counter]

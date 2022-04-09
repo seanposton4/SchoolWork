@@ -1,0 +1,63 @@
+int r1 = 0, c1 = 0, r2 = 0, c2 = 0, r3 = 0, c3 = 0;
+
+    say "Matrix 1: enter row and column size"
+    insert r1
+    insert c1
+
+    array[r1,c1] A
+    
+    say "Enter variables for Matrix 1["+ r1 +"]["+ c1 + "]"
+    floop int i = 0 to i < r1: 
+      floop int j = 0 to j < c1:
+        insert A[i,j]
+		j=j+1
+      end
+	  i=i+1
+    end
+
+    say "Matrix 2: enter row and column size"
+    insert r2
+    insert c2
+
+    array[r2,c2] B
+    
+    say "Enter variables for Matrix 2["+ r2 +"]["+ c2 + "]"
+    floop int i = 0 to i < r2: 
+      floop int j = 0 to j < c2:
+        insert B[i,j]
+		j=j+1
+      end
+	  i=i+1
+    end
+
+    r3 = r1
+    if c1 > c2:
+      c3 = c1
+    else: c3 = c2
+
+    array[r3,c3] C
+
+    if (r1 >= r2):
+      floop int i = 0 to i < r1:
+            floop int j = 0 toj < c2: 
+                C[i,j] = 0; 
+                floop int k = 0 to k < c1:
+                    C[i,j] += A[i,k] * B[k,j]
+					k=k+1
+				end
+			j=j+1
+			end
+		i=i+1
+		end
+
+      say "A + B =" 
+        floop int i = 0 to i < r3:
+            floop int j = 0 to j < c3:
+                say C[i][j] + " "
+				j=j+1
+			end
+		i=i+1
+		end
+
+     else:
+      say "Incompatible Dimensions"
