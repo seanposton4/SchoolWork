@@ -1,0 +1,60 @@
+Proofs:
+
+2 = 1
+x = y
+x^2 = yx
+x^2 - y^2 = yx - y^2
+(x - y)(x + y) = y(x - y)
+x + y = y
+y + y = y
+2y = y
+2 = 1 PROVED (FLAWED)
+
+Terminologies:
+
+Conjecture: statement that is being proposed to be true
+Theorem: a statment that has been shown to be true (it is proved)
+Axioms/postulates: statements we assume to be true
+	1 = 1; x = y, y = x
+Lemma: a lesser theorem that is helpful in the proof of theorems
+Corollary: theorem that can be established directly from a proven theorem
+
+Direct Proofs:
+
+Use facts, lemma, axioms, other theorms to prove statement.
+
+k is an element of integer
+2k - even
+2k + 1 - odd
+Ex 1: if n is an odd, then n^2 is an odd number
+(2k + 1)^2 
+= 4k^2 + 4k + 1
+= 2(2k^2 + 2k) + 1
+2k^2 + 2k = k
+= 2k + 1
+
+Ex 2: if n is an even integer, then (-1)^n = 1
+	(-1)^2 = 1
+	(-1)^4 = 1
+	(-1)^6 = 1
+		can't just keep doing this infinitely
+(-1)^(2k)
+= ((-1)^2)^k
+= (1)^k
+= 1
+
+Ex 3: if a|b and a|c then a|(b+c)
+	a = 2
+	b = 10
+	c = 8
+	
+b / a = r
+b = a * r
+	there is an integer such that r * a will be b
+
+c / a = t
+c = a * t
+	there is an integer such that r * a will be c
+	
+b + c = ar + at 
+= a(r + t)
