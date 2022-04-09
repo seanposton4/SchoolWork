@@ -1,0 +1,11 @@
+I could never get a downloadable compiler to work for whatever reason,
+so I had to resort to using an online compiler. This actually worked for
+a while, until the compiler decided it didn't to do its job anymore.
+Perhaps the online compiler isn't capable of handling the amount of code
+that I had. So, for the final bit of the code I had go without testing.
+Another issue I had is that some of the strategies I used for the past
+grade reports I could'nt quite get to work in cobol. One example of this
+is that I tried to store each unique assignment category into an array,
+which helps display the assignments later easier. I could not find a way
+in Cobol to check if a value was already in the array, so I had to scrap
+that idea altogether.

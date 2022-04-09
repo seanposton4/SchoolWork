@@ -1,0 +1,36 @@
+<program> ::= <stmnt-list>
+
+<stmnt-list> ::= {<array-decl>|<assignment>|<while>|<input>|<output>}
+
+<array-decl> ::= 'array' '[' <literal> ']' <id>
+
+<assignment> ::= <ref> ':=' <expr>
+
+<expr> ::= <term> {( '+' | '-' )<term>}
+
+<term> ::= <factor> {( '*' | '/' )<factor>}
+
+<factor> ::= <exp>{ '^' <exp>}
+
+<exp> ::= '(' <expr> ')' | <id> | <literal> | <ref>
+
+<bool-expr> ::= [ 'not' ] <expr> [ ( '<' | '>' | '<=' | '>=' | '=') <expr> ]
+--I found something similar to this on a Google images search
+--(That's to say: I'm not this creative)
+
+<while> ::= 'while' <bool-expr> <stmnt-list> 'end'
+
+<input> ::= 'in' <ref>
+
+<output> ::= 'out' <ref>
+
+<id> ::= <letter> {<letter>|<integer>}
+
+<ref> ::= <id> '[' <expr> ']'
+
+<literal> ::= <digit>{<digit>} | <bool-lit>
+
+<bool-lit> ::= 'false' | 'true'
+
+<letter> ::= Any upper or lower case letter A-Z
+<digit> ::= Any single digit 0-9

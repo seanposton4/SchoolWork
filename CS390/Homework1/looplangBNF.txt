@@ -1,0 +1,45 @@
+<program> ::= <stmnt-list>
+
+<stmnt-list> ::= <stmnt-list><array-decl>
+				| <stmnt-list><assignment>
+				| <stmnt-list><while>
+				| <stmnt-list><input>
+				| <stmnt-list><output>
+
+<array-decl> ::= 'array' '[' <literal> ']' <id>
+
+<assignment> ::= <ref> ':=' <expr>
+
+<expr> ::= <term> <expr><add-sub><term>
+
+<add-sub> ::= '+' | '-'
+
+<term> ::= <factor> <term><mul-div><factor>
+
+<mul-div> ::= '*' | '/'
+
+<factor> ::= <exp> | <factor> '^' <exp>
+
+<exp> ::= '(' <expr> ')' | <id> | <literal> | <ref>
+
+<bool-expr> ::= 'not' <expr> 
+				| <expr>
+				| 'not' <expr> ( '<' | '>' | '<=' | '>=' | '=') <expr>
+				| <expr> ( '<' | '>' | '<=' | '>=' | '=') <expr>
+
+<while> ::= 'while' <bool-expr> <stmnt-list> 'end'
+
+<input> ::= 'in' <ref>
+
+<output> ::= 'out' <ref>
+
+<id> ::= <letter> | <id><letter> | <id><integer>
+
+<ref> ::= <id> '[' <expr> ']'
+
+<literal> ::= <digit> | <literal><digit> | <bool-lit>
+
+<bool-lit> ::= 'false' | 'true'
+
+<letter> ::= Any upper or lower case letter A-Z
+<digit> ::= Any single digit 0-9
